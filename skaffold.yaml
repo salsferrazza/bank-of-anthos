@@ -50,3 +50,5 @@ deploy:
     - ./extras/jwt/jwt-secret.yaml
 profiles:
   - name: local-code
+  kustomize:
+    paths: ["manifests/base"]
