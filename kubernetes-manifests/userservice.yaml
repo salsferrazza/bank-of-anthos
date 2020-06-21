@@ -24,6 +24,7 @@ spec:
     metadata:
       labels:
         app: userservice
+        version: v1
     spec:
       terminationGracePeriodSeconds: 5
       containers:
