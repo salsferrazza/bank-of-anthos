@@ -23,6 +23,8 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Entry point for the BalanceReader Spring Boot application.
@@ -61,6 +63,11 @@ public class BalanceReaderApplication {
             String.format("Started BalanceReader service. Log level is: %s",
                 LOGGER.getLevel().toString()));
 
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 
     @PreDestroy

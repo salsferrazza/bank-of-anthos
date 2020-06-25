@@ -24,7 +24,23 @@ from flask import Flask, abort, jsonify, make_response, redirect, \
 import requests
 import jwt
 
+from opentelemetry import trace
+import opentelemetry.ext.requests
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import SimpleExportSpanProcessor
+from opentelemetry.ext.flask import FlaskInstrumentor
+from opentelemetry.exporter.cloud_trace import CloudTraceSpanExporter
+
 APP = Flask(__name__)
+
+trace.set_tracer_provider(TracerProvider())
+cloud_trace_exporter = CloudTraceSpanExporter()
+trace.get_tracer_provider().add_span_processor(
+    SimpleExportSpanProcessor(cloud_trace_exporter)
+)
+
+opentelemetry.ext.requests.RequestsInstrumentor().instrument()
+FlaskInstrumentor().instrument_app(APP)
 
 @APP.route('/version', methods=['GET'])
 def version():
