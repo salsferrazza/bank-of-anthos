@@ -42,7 +42,7 @@ trace.get_tracer_provider().add_span_processor(
     SimpleExportSpanProcessor(cloud_trace_exporter)
 )
 
-# set_global_httptextformat(CloudTraceFormatPropagator())
+set_global_httptextformat(CloudTraceFormatPropagator())
 
 APP = Flask(__name__)
 
