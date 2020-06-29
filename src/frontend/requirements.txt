@@ -22,7 +22,7 @@ idna==2.9                 # via requests
 itsdangerous==1.1.0       # via flask
 jinja2==2.11.1            # via flask
 markupsafe==1.1.1         # via jinja2
-opentelemetry-api==0.10b0  # via -r requirements.in, opentelemetry-exporter-cloud-trace, opentelemetry-ext-flask, opentelemetry-ext-requests, opentelemetry-ext-wsgi, opentelemetry-instrumentation, opentelemetry-sdk
+opentelemetry-api==0.10b0  # via opentelemetry-exporter-cloud-trace, opentelemetry-ext-flask, opentelemetry-ext-requests, opentelemetry-ext-wsgi, opentelemetry-instrumentation, opentelemetry-sdk
 opentelemetry-exporter-cloud-trace==0.10b0  # via -r requirements.in
 opentelemetry-ext-flask==0.10b0  # via -r requirements.in
 opentelemetry-ext-requests==0.10b0  # via -r requirements.in

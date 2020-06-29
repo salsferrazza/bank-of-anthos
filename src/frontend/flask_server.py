@@ -21,6 +21,14 @@ import os
 
 from flask import Flask, abort, jsonify, make_response, redirect, \
     render_template, request, url_for
+from opentelemetry import trace
+from opentelemetry.exporter.cloud_trace.cloud_trace_propagator import CloudTraceFormatPropagator
+from opentelemetry.exporter.cloud_trace import CloudTraceSpanExporter
+from opentelemetry.ext.flask import FlaskInstrumentor
+from opentelemetry.ext.requests import RequestsInstrumentor
+from opentelemetry.propagators import set_global_httptextformat
+from opentelemetry.sdk.trace import TracerProvider, generate_trace_id
+from opentelemetry.sdk.trace.export import SimpleExportSpanProcessor
 import requests
 from requests.exceptions import HTTPError, RequestException
 import jwt
@@ -28,6 +36,18 @@ import jwt
 
 APP = Flask(__name__)
 
+trace.set_tracer_provider(TracerProvider())
+cloud_trace_exporter = CloudTraceSpanExporter()
+trace.get_tracer_provider().add_span_processor(
+    SimpleExportSpanProcessor(cloud_trace_exporter)
+)
+
+# set_global_httptextformat(CloudTraceFormatPropagator())
+
+APP = Flask(__name__)
+
+FlaskInstrumentor().instrument_app(APP)
+RequestsInstrumentor().instrument()
 
 @APP.route('/version', methods=['GET'])
 def version():
@@ -343,7 +363,7 @@ def _login_helper(username, password):
     try:
         APP.logger.debug('Logging in.')
         req = requests.get(url=APP.config["LOGIN_URI"],
-                           params={'username': username, 'password': password})
+                        params={'username': username, 'password': password})
         req.raise_for_status() # Raise on HTTP Status code 4XX or 5XX
 
         # login success

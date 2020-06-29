@@ -24,12 +24,14 @@ idna==2.9                 # via requests
 itsdangerous==1.1.0       # via flask
 jinja2==2.11.1            # via flask
 markupsafe==1.1.1         # via jinja2
-opentelemetry-api==0.10b0  # via -r requirements.in, opentelemetry-exporter-cloud-trace, opentelemetry-ext-flask, opentelemetry-ext-wsgi, opentelemetry-instrumentation, opentelemetry-sdk
-opentelemetry-exporter-cloud-trace==0.10b0  # via -r requirements.in
-opentelemetry-ext-flask==0.10b0  # via -r requirements.in
-opentelemetry-ext-wsgi==0.10b0  # via opentelemetry-ext-flask
-opentelemetry-instrumentation==0.10b0  # via opentelemetry-ext-flask, opentelemetry-ext-wsgi
-opentelemetry-sdk==0.10b0  # via -r requirements.in, opentelemetry-exporter-cloud-trace
+
+opentelemetry-api==0.9b0  # via opentelemetry-exporter-cloud-trace, opentelemetry-ext-flask, opentelemetry-ext-requests, opentelemetry-ext-wsgi, opentelemetry-instrumentation, opentelemetry-sdk
+opentelemetry-exporter-cloud-trace==0.9b0  # via -r requirements.in
+opentelemetry-ext-flask==0.9b0  # via -r requirements.in
+opentelemetry-ext-requests==0.9b0  # via -r requirements.in
+opentelemetry-ext-wsgi==0.9b0  # via opentelemetry-ext-flask
+opentelemetry-instrumentation==0.9b0  # via opentelemetry-ext-flask, opentelemetry-ext-requests, opentelemetry-ext-wsgi
+opentelemetry-sdk==0.9b0  # via -r requirements.in, opentelemetry-exporter-cloud-trace
 protobuf==3.12.2          # via google-api-core, googleapis-common-protos
 psycopg2==2.7.7           # via -r requirements.in
 pyasn1-modules==0.2.8     # via google-auth
@@ -37,11 +39,19 @@ pyasn1==0.4.8             # via pyasn1-modules, rsa
 pycparser==2.20           # via cffi
 pyjwt==1.7.1              # via -r requirements.in
 pytz==2020.1              # via google-api-core
+<<<<<<< HEAD
 requests==2.24.0          # via google-api-core
+=======
+requests==2.24.0          # via google-api-core, opentelemetry-ext-requests
+>>>>>>> c558ba989ca4ab91d50397ebc6978e4bcc8ca9a3
 rsa==4.6                  # via google-auth
 six==1.14.0               # via bcrypt, bleach, cryptography, google-api-core, google-auth, grpcio, protobuf
 sqlalchemy==1.3.16        # via -r requirements.in
 urllib3==1.25.9           # via requests
+<<<<<<< HEAD
+=======
+webencodings==0.5.1       # via bleach
+>>>>>>> c558ba989ca4ab91d50397ebc6978e4bcc8ca9a3
 werkzeug==1.0.1           # via flask
 wrapt==1.12.1             # via opentelemetry-instrumentation
 

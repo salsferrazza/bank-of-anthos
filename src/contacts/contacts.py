@@ -28,13 +28,30 @@ import bleach
 import jwt
 from db import ContactsDb
 from sqlalchemy.exc import OperationalError, SQLAlchemyError
+from opentelemetry import trace
+from opentelemetry.exporter.cloud_trace.cloud_trace_propagator import CloudTraceFormatPropagator
+from opentelemetry.exporter.cloud_trace import CloudTraceSpanExporter
+from opentelemetry.ext.flask import FlaskInstrumentor
+from opentelemetry.propagators import set_global_httptextformat
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import SimpleExportSpanProcessor
 
 
 def create_app():
+    trace.set_tracer_provider(TracerProvider())
+    cloud_trace_exporter = CloudTraceSpanExporter()
+    trace.get_tracer_provider().add_span_processor(
+        SimpleExportSpanProcessor(cloud_trace_exporter)
+    )
+
+    set_global_httptextformat(CloudTraceFormatPropagator())
+
     """Flask application factory to create instances
     of the Contact Service Flask App
     """
     app = Flask(__name__)
+
+    FlaskInstrumentor().instrument_app(app)
 
     # Disabling unused-variable for lines with route decorated functions
     # as pylint thinks they are unused
@@ -59,6 +76,7 @@ def create_app():
         Return: a list of contacts
         """
         auth_header = request.headers.get("Authorization")
+        app.logger.info('Headers: %s', str(request.headers))
         if auth_header:
             token = auth_header.split(" ")[-1]
         else:
