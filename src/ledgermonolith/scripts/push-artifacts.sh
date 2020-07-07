@@ -36,18 +36,18 @@ CWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 
 # If the GCS bucket doesn't exist, then create it
-gsutil ls -p $PROJECT_ID gs://bank-of-anthos &> /dev/null
+gsutil ls -p $PROJECT_ID gs://${PROJECT_ID} &> /dev/null
 if [ $? -ne 0 ]; then
-  gsutil mb -p $PROJECT_ID gs://bank-of-anthos
+  gsutil mb -p $PROJECT_ID gs://${PROJECT_ID}
 fi
 
 # Push application initialization artifacts
-gsutil cp $CWD/../target/ledgermonolith-1.0.jar gs://bank-of-anthos/monolith/${APP_JAR}
-gsutil -m cp -r $CWD/../init/* gs://bank-of-anthos/monolith/
+gsutil cp $CWD/../target/ledgermonolith-1.0.jar gs://${PROJECT_ID}/monolith/${APP_JAR}
+gsutil -m cp -r $CWD/../init/* gs://${PROJECT_ID}/monolith/
 
 # Push database initialization scripts
-gsutil -m cp -r $CWD/../../ledger-db/initdb gs://bank-of-anthos/monolith/
+gsutil -m cp -r $CWD/../../ledger-db/initdb gs://${PROJECT_ID}/monolith/
 
 # Push JWT authentication keys
-gsutil cp $CWD/../../../extras/jwt/jwt-secret.yaml gs://bank-of-anthos/monolith/jwt-secret.yaml
+gsutil cp $CWD/../../../extras/jwt/jwt-secret.yaml gs://${PROJECT_ID}/monolith/jwt-secret.yaml
 

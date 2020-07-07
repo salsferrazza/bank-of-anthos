@@ -17,7 +17,7 @@
 # Startup script to start the ledgermonolith service from a JAR.
 #
 # Expects build artifacts to be available on Google Cloud Storage at
-# gs://bank-of-anthos/monolith.
+# gs://boa-monolith/monolith.
 #
 # Designed to be attached as a startup script to a Google Compute Engine VM.
 
@@ -71,7 +71,7 @@ fi
 
 
 # Pull build artifacts
-gsutil -m cp -r gs://bank-of-anthos/monolith /opt/
+gsutil -m cp -r gs://boa-monolith/monolith /opt/
 
 
 # Export application environment variables
